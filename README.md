@@ -88,3 +88,8 @@ To start with another screen, change `splash_create()` to that screen's `<name>_
 - The LVGL performance monitor is in `Core/Inc/lv_conf.h` (`LV_USE_PERF_MONITOR`).
 - Note: a hot-plug SWD connection (for example STM32CubeProgrammer in hot-plug mode) stops the
   board's interrupts, so the UI freezes. A reset or a re-flash fixes it.
+
+## License
+
+MIT, see [LICENSE](LICENSE). LVGL, the ST drivers (CMSIS, STM32U5 HAL) and ThreadX keep their
+own licenses; `LICENSE` lists them.
