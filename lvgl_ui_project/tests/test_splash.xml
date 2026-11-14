@@ -1,0 +1,21 @@
+<!-- Splash: the logos fade in on the wall display.
+     The load of home after 2.5 s is not tested here: the test runner has not
+     created the permanent screens yet when the splash loads, so it logs
+     "No screen is found with `home` name". `lvglpro screenshot` with
+     delay 3800 shows home, and the simulator starts the same way. -->
+<test>
+	<view extends="splash" />
+
+	<steps>
+		<!-- Pin every subject the screenshots depend on: subjects keep their values between tests -->
+		<subject_set subject="subject_mode" value="1" />
+		<subject_set subject="subject_fan" value="0" />
+		<subject_set subject="subject_room" value="0" />
+		<subject_set subject="subject_unit_f" value="0" />
+		<subject_set subject="subject_temp_target" value="215" />
+		<subject_set subject="subject_brightness" value="80" />
+		<wait ms="50" />
+		<wait ms="1200" />
+		<screenshot_compare path="splash_logos.png" />
+	</steps>
+</test>

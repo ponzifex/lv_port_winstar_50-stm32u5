@@ -1,0 +1,21 @@
+<!-- Nav rail: the grid icon opens rooms, the gear icon opens settings -->
+<test>
+	<view extends="home" />
+
+	<steps>
+		<!-- Pin every subject the screenshots depend on: subjects keep their values between tests -->
+		<subject_set subject="subject_mode" value="3" />
+		<subject_set subject="subject_fan" value="0" />
+		<subject_set subject="subject_room" value="1" />
+		<subject_set subject="subject_unit_f" value="0" />
+		<subject_set subject="subject_temp_target" value="215" />
+		<subject_set subject="subject_brightness" value="80" />
+		<wait ms="50" />
+		<click_at x="44" y="240" />
+		<wait ms="500" />
+		<screenshot_compare path="nav_rooms.png" />
+		<click_at x="44" y="324" />
+		<wait ms="500" />
+		<screenshot_compare path="nav_settings.png" />
+	</steps>
+</test>

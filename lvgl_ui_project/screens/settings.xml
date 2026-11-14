@@ -1,0 +1,63 @@
+<!-- Settings: units, brightness, and the About card -->
+<screen permanent="true">
+	<styles>
+		<style name="style_slider_track" bg_color="{color_panel_high}" bg_opa="100%" radius="{radius_round}" />
+		<style name="style_slider_knob" bg_color="{color_text}" bg_opa="100%" pad_all="8" radius="{radius_round}" />
+	</styles>
+
+	<view flex_flow="row" scrollable="false">
+		<style name="style_screen" />
+		<nav_rail active="settings" />
+
+		<lv_obj flex_grow="1" height="100%" flex_flow="column" scrollable="false"
+			style_pad_all="{space_xl}" style_pad_gap="{space_lg}">
+			<style name="style_box" />
+			<top_bar title="Settings" />
+
+			<settings_row title="Temperature units" subtitle="Used on every screen">
+				<settings_row-control>
+					<choice_button text="°C" width="88" flex_grow="0" selected="{subject_unit_f == 0}">
+						<set_subject_event subject="subject_unit_f" value="0" />
+					</choice_button>
+					<choice_button text="°F" width="88" flex_grow="0" selected="{subject_unit_f == 1}">
+						<set_subject_event subject="subject_unit_f" value="1" />
+					</choice_button>
+				</settings_row-control>
+			</settings_row>
+
+			<settings_row title="Display brightness" subtitle="Backlight level">
+				<settings_row-control>
+					<lv_slider width="240" height="10" min_value="10" max_value="100"
+						bind_value="subject_brightness" style_bg_color-indicator="{subject_accent}">
+						<style name="style_slider_track" />
+						<style name="style_slider_track" selector="indicator" />
+						<style name="style_slider_knob" selector="knob" />
+					</lv_slider>
+					<lv_label text="{subject_brightness . '%'}" width="56" style_text_align="right" />
+				</settings_row-control>
+			</settings_row>
+
+			<!-- About: logos and hardware facts -->
+			<lv_obj width="100%" flex_grow="1" flex_flow="row" scrollable="false"
+				style_pad_gap="{space_xl}" style_flex_cross_place="center">
+				<style name="style_card" />
+				<lv_obj width="content" height="content" flex_flow="column"
+					style_pad_gap="{space_md}" style_flex_cross_place="center">
+					<style name="style_box" />
+					<lv_image src="img_logo_winstar" />
+				</lv_obj>
+				<lv_obj flex_grow="1" height="content" flex_flow="column" style_pad_gap="{space_xs}">
+					<style name="style_box" />
+					<lv_label text="Smart Thermostat Demo" style_text_font="font_h2" />
+					<lv_label text="Winstar 5&quot; touch display · 800×480">
+						<style name="style_text_muted" />
+					</lv_label>
+					<lv_label text="STM32U599 · LVGL 9.6">
+						<style name="style_text_muted" />
+					</lv_label>
+					<lv_image src="img_logo_lvgl" style_margin_top="{space_md}" />
+				</lv_obj>
+			</lv_obj>
+		</lv_obj>
+	</view>
+</screen>

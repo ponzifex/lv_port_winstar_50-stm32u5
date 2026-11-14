@@ -1,0 +1,22 @@
+<!-- Fan speed: a segmented control for subject_fan -->
+<component>
+	<previews>
+		<preview name="dark" width="300" height="80" style_bg_color="0x181C24" style_pad_all="12" />
+	</previews>
+
+	<view extends="lv_obj" width="100%" height="content" flex_flow="row" style_pad_gap="{space_sm}">
+		<style name="style_box" />
+		<choice_button text="Auto" selected="{subject_fan == 0}">
+			<set_subject_event subject="subject_fan" value="0" />
+		</choice_button>
+		<choice_button text="Low" selected="{subject_fan == 1}">
+			<set_subject_event subject="subject_fan" value="1" />
+		</choice_button>
+		<choice_button text="Med" selected="{subject_fan == 2}">
+			<set_subject_event subject="subject_fan" value="2" />
+		</choice_button>
+		<choice_button text="High" selected="{subject_fan == 3}">
+			<set_subject_event subject="subject_fan" value="3" />
+		</choice_button>
+	</view>
+</component>

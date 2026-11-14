@@ -1,0 +1,172 @@
+<globals>
+	<api>
+		<!-- No project-wide enums yet -->
+	</api>
+
+	<!-- ===== Design tokens ===== -->
+	<consts>
+		<!-- Spacing -->
+		<int name="space_xs" value="4" help="Smallest gap" />
+		<int name="space_sm" value="8" help="Small gap" />
+		<int name="space_md" value="12" help="Default gap" />
+		<int name="space_lg" value="16" help="Gap between cards" />
+		<int name="space_xl" value="24" help="Screen padding" />
+
+		<!-- Shape -->
+		<int name="radius_card" value="20" help="Card corner radius" />
+		<int name="radius_button" value="14" help="Button corner radius" />
+		<int name="radius_round" value="1000" help="Pill and circle radius" />
+
+		<!-- Fixed sizes of the layout -->
+		<int name="nav_rail_width" value="88" help="Width of the left navigation rail" />
+		<int name="nav_button_size" value="60" help="Square nav button" />
+		<int name="top_bar_height" value="48" help="Height of the top bar" />
+		<int name="touch_min" value="56" help="Smallest touch target" />
+		<int name="dial_card_width" value="340" help="Width of the dial card on home" />
+		<int name="dial_size" value="290" help="Diameter of the target temperature arc" />
+		<int name="arc_width" value="18" help="Stroke of the dial arc" />
+
+		<!-- Surface colors (dark theme) -->
+		<color name="color_bg" value="0x0E1117" help="Screen background" />
+		<color name="color_panel" value="0x181C24" help="Card and nav rail background" />
+		<color name="color_panel_high" value="0x232935" help="Button on a card" />
+		<color name="color_border" value="0x2C3341" help="Thin card border" />
+		<color name="color_text" value="0xE9ECF2" help="Primary text and icons" />
+		<color name="color_text_muted" value="0x8C95A6" help="Secondary text and icons" />
+		<color name="color_on_accent" value="0x0E1117" help="Text and icons on an accent fill" />
+
+		<!-- Mode accents. subject_accent holds the one in use -->
+		<color name="color_heat" value="0xFF8A3D" help="Accent in heat mode" />
+		<color name="color_cool" value="0x4DA3FF" help="Accent in cool mode" />
+		<color name="color_auto" value="0x2EC4B6" help="Accent in auto mode" />
+		<color name="color_off" value="0x7A8394" help="Accent when the system is off" />
+	</consts>
+
+	<!-- ===== Fonts: Inter 4.1, compiled in ===== -->
+	<fonts>
+		<!-- Only digits and the signs a temperature needs, to keep the large font small -->
+		<bin name="font_display" src_path="fonts/inter/Inter-Light.ttf" size="88" bpp="4"
+			range="0x2D-0x39" symbols="°" as_file="false" />
+		<bin name="font_h1" src_path="fonts/inter/Inter-SemiBold.ttf" size="40" bpp="4"
+			range="0x20-0x7F" symbols="°−" as_file="false" />
+		<bin name="font_h2" src_path="fonts/inter/Inter-SemiBold.ttf" size="22" bpp="4"
+			range="0x20-0x7F" symbols="°×·" as_file="false" />
+		<bin name="font_body" src_path="fonts/inter/Inter-Regular.ttf" size="18" bpp="4"
+			range="0x20-0x7F" symbols="°×·" as_file="false" />
+		<bin name="font_small" src_path="fonts/inter/Inter-Medium.ttf" size="15" bpp="4"
+			range="0x20-0x7F" symbols="°×·" as_file="false" />
+	</fonts>
+
+	<!-- ===== Subjects: the interface to the application. See README.md ===== -->
+	<subjects>
+		<!-- Temperatures are in 0.1 °C: 215 = 21.5 °C -->
+		<int name="subject_temp_target" value="215" min_value="160" max_value="300" help="Target temperature, set by the user" />
+		<int name="subject_temp_living" value="214" min_value="-400" max_value="600" help="Living room temperature, from the application" />
+		<int name="subject_temp_bedroom" value="192" min_value="-400" max_value="600" help="Bedroom temperature, from the application" />
+		<int name="subject_temp_kitchen" value="226" min_value="-400" max_value="600" help="Kitchen temperature, from the application" />
+		<int name="subject_temp_office" value="208" min_value="-400" max_value="600" help="Office temperature, from the application" />
+		<int name="subject_temp_outdoor" value="-35" min_value="-400" max_value="600" help="Outdoor temperature, from the application" />
+		<int name="subject_humidity" value="42" min_value="0" max_value="100" help="Indoor relative humidity in %, from the application" />
+		<string name="subject_time" value="18:42" help="Clock text, from the application" />
+
+		<int name="subject_mode" value="1" min_value="0" max_value="3" help="0 off, 1 heat, 2 cool, 3 auto" />
+		<int name="subject_fan" value="0" min_value="0" max_value="3" help="0 auto, 1 low, 2 medium, 3 high" />
+		<int name="subject_room" value="0" min_value="0" max_value="3" help="0 living, 1 bedroom, 2 kitchen, 3 office" />
+		<int name="subject_unit_f" value="0" min_value="0" max_value="1" help="0 shows °C, 1 shows °F" />
+		<int name="subject_brightness" value="80" min_value="10" max_value="100" help="Backlight in %. The application applies it" />
+
+		<!-- Derived from subject_mode on the home screen. Do not write it from C -->
+		<color name="subject_accent" value="0xFF8A3D" help="Accent color of the current mode" />
+	</subjects>
+
+	<!-- ===== Images ===== -->
+	<images>
+		<!-- Lucide icons: black strokes, recolored at runtime with image_recolor.
+		     28 px for controls, 36 px for the room cards -->
+		<convert src="images/icons/src/house.svg" dest="images/icons/house.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/layout-grid.svg" dest="images/icons/layout_grid.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/settings.svg" dest="images/icons/settings.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/flame.svg" dest="images/icons/flame.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/snowflake.svg" dest="images/icons/snowflake.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/sun-snow.svg" dest="images/icons/sun_snow.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/power.svg" dest="images/icons/power.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/fan.svg" dest="images/icons/fan.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/droplets.svg" dest="images/icons/droplets.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/cloud-sun.svg" dest="images/icons/cloud_sun.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/thermometer.svg" dest="images/icons/thermometer.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/sun.svg" dest="images/icons/sun.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/info.svg" dest="images/icons/info.png" width="28" color_format="argb8888" />
+		<convert src="images/icons/src/sofa.svg" dest="images/icons/sofa.png" width="36" color_format="argb8888" />
+		<convert src="images/icons/src/bed-double.svg" dest="images/icons/bed_double.png" width="36" color_format="argb8888" />
+		<convert src="images/icons/src/cooking-pot.svg" dest="images/icons/cooking_pot.png" width="36" color_format="argb8888" />
+		<convert src="images/icons/src/monitor.svg" dest="images/icons/monitor.png" width="36" color_format="argb8888" />
+
+		<data name="icon_house" src_path="images/icons/house.png" color_format="argb8888" />
+		<data name="icon_layout_grid" src_path="images/icons/layout_grid.png" color_format="argb8888" />
+		<data name="icon_settings" src_path="images/icons/settings.png" color_format="argb8888" />
+		<data name="icon_flame" src_path="images/icons/flame.png" color_format="argb8888" />
+		<data name="icon_snowflake" src_path="images/icons/snowflake.png" color_format="argb8888" />
+		<data name="icon_sun_snow" src_path="images/icons/sun_snow.png" color_format="argb8888" />
+		<data name="icon_power" src_path="images/icons/power.png" color_format="argb8888" />
+		<data name="icon_fan" src_path="images/icons/fan.png" color_format="argb8888" />
+		<data name="icon_droplets" src_path="images/icons/droplets.png" color_format="argb8888" />
+		<data name="icon_cloud_sun" src_path="images/icons/cloud_sun.png" color_format="argb8888" />
+		<data name="icon_thermometer" src_path="images/icons/thermometer.png" color_format="argb8888" />
+		<data name="icon_sun" src_path="images/icons/sun.png" color_format="argb8888" />
+		<data name="icon_info" src_path="images/icons/info.png" color_format="argb8888" />
+		<data name="icon_sofa" src_path="images/icons/sofa.png" color_format="argb8888" />
+		<data name="icon_bed_double" src_path="images/icons/bed_double.png" color_format="argb8888" />
+		<data name="icon_cooking_pot" src_path="images/icons/cooking_pot.png" color_format="argb8888" />
+		<data name="icon_monitor" src_path="images/icons/monitor.png" color_format="argb8888" />
+
+		<!-- Logos, scaled down from the large source PNGs -->
+		<convert src="images/logos/winstar_logo_white.png" dest="images/logos/winstar_logo_180.png" width="180" color_format="argb8888" />
+		<convert src="images/logos/lvgl_logo_white.png" dest="images/logos/lvgl_logo_120.png" width="120" color_format="argb8888" />
+		<data name="img_logo_winstar" src_path="images/logos/winstar_logo_180.png" color_format="argb8888" />
+		<data name="img_logo_lvgl" src_path="images/logos/lvgl_logo_120.png" color_format="argb8888" />
+		<!-- Smaller copies that fit the wall display in the splash photo -->
+		<convert src="images/logos/winstar_logo_white.png" dest="images/logos/winstar_logo_130.png" width="130" color_format="argb8888" />
+		<convert src="images/logos/lvgl_logo_white.png" dest="images/logos/lvgl_logo_96.png" width="96" color_format="argb8888" />
+		<data name="img_logo_winstar_small" src_path="images/logos/winstar_logo_130.png" color_format="argb8888" />
+		<data name="img_logo_lvgl_small" src_path="images/logos/lvgl_logo_96.png" color_format="argb8888" />
+
+		<!-- Full-screen photo, opaque -->
+		<data name="img_splash" src_path="images/splash/splash_s.png" color_format="rgb565" />
+	</images>
+
+	<!-- ===== Shared styles ===== -->
+	<styles>
+		<!-- Screen root: sets the inherited text color and font for everything -->
+		<style name="style_screen" bg_color="{color_bg}" bg_opa="100%"
+			text_color="{color_text}" text_font="font_body" pad_all="0" />
+
+		<!-- Card surface -->
+		<style name="style_card" bg_color="{color_panel}" bg_opa="100%"
+			border_color="{color_border}" border_width="1" border_opa="100%"
+			radius="{radius_card}" pad_all="{space_lg}" />
+
+		<!-- Transparent layout box: no background, border, or padding -->
+		<style name="style_box" bg_opa="0" border_width="0" pad_all="0"
+			radius="0" shadow_width="0" />
+
+		<!-- Neutral button on a card; checked fills with the accent -->
+		<style name="style_button" bg_color="{color_panel_high}" bg_opa="100%"
+			radius="{radius_button}" shadow_width="0" border_width="0"
+			text_color="{color_text}" text_font="font_small" pad_all="{space_sm}">
+			<transition props="bg_color text_color image_recolor" duration="150" />
+		</style>
+		<style name="style_button_pressed" recolor="0xffffff" recolor_opa="12%" />
+		<style name="style_button_checked" text_color="{color_on_accent}" />
+
+		<!-- Monochrome icon, recolored by its parent's text-like color -->
+		<style name="style_icon" image_recolor="{color_text}" image_recolor_opa="100%" />
+		<style name="style_icon_muted" image_recolor="{color_text_muted}" />
+		<!-- For an icon in a button with state_trickle, on the "checked" selector -->
+		<style name="style_icon_on_accent" image_recolor="{color_on_accent}" />
+
+		<!-- Text roles -->
+		<style name="style_text_muted" text_color="{color_text_muted}" />
+		<style name="style_text_title" text_font="font_h2" />
+		<style name="style_text_caption" text_font="font_small" text_color="{color_text_muted}" />
+	</styles>
+</globals>

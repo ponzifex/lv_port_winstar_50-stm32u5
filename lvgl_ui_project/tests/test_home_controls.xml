@@ -1,0 +1,43 @@
+<!-- Home: -/+ change the target by 0.5 °C and stop at the limit,
+     mode and fan buttons write their subjects, the accent follows the mode -->
+<test>
+	<view extends="home" />
+
+	<steps>
+		<!-- Pin every subject the screenshots depend on: subjects keep their values between tests -->
+		<subject_set subject="subject_mode" value="1" />
+		<subject_set subject="subject_fan" value="0" />
+		<subject_set subject="subject_room" value="0" />
+		<subject_set subject="subject_unit_f" value="0" />
+		<subject_set subject="subject_temp_target" value="215" />
+		<subject_set subject="subject_brightness" value="80" />
+		<wait ms="50" />
+
+		<!-- + then - - -->
+		<click_at x="334" y="412" />
+		<wait ms="50" />
+		<subject_compare subject="subject_temp_target" value="220" />
+		<click_at x="230" y="412" />
+		<wait ms="50" />
+		<click_at x="230" y="412" />
+		<wait ms="50" />
+		<subject_compare subject="subject_temp_target" value="210" />
+
+		<!-- + at the maximum stays at 30.0 °C -->
+		<subject_set subject="subject_temp_target" value="300" />
+		<wait ms="50" />
+		<click_at x="334" y="412" />
+		<wait ms="50" />
+		<subject_compare subject="subject_temp_target" value="300" />
+
+		<!-- Cool mode and high fan -->
+		<subject_set subject="subject_temp_target" value="230" />
+		<click_at x="692" y="175" />
+		<wait ms="50" />
+		<subject_compare subject="subject_mode" value="2" />
+		<click_at x="728" y="411" />
+		<wait ms="300" />
+		<subject_compare subject="subject_fan" value="3" />
+		<screenshot_compare path="home_cool.png" />
+	</steps>
+</test>

@@ -1,0 +1,55 @@
+<!-- A room on the rooms screen. Tap: select the room and go to home. -->
+<component>
+	<api>
+		<prop name="text" type="string" default="Room" help="Room name" />
+		<prop name="icon" type="image" help="36 px Lucide icon" />
+		<prop name="temp" type="subject" help="Int subject with the room temperature in 0.1 °C" />
+		<prop name="index" type="int" default="0" help="Value written to subject_room" />
+	</api>
+
+	<styles>
+		<style name="style_room_icon" width="64" height="64" radius="{radius_round}"
+			bg_color="{color_panel_high}" bg_opa="100%" border_width="0" pad_all="0" />
+		<style name="style_room_card_checked" border_width="2" />
+	</styles>
+
+	<previews>
+		<preview name="dark" width="340" height="200" style_bg_color="0x0E1117"
+			style_text_color="0xE9ECF2" style_text_font="font_body" style_pad_all="8" />
+	</previews>
+
+	<view extends="lv_button" flex_grow="1" height="100%" flex_flow="column"
+		checked="{subject_room == index}"
+		style_flex_main_place="space_between" style_border_color-checked="{subject_accent}">
+		<style name="style_card" />
+		<style name="style_room_card_checked" selector="checked" />
+		<style name="style_button_pressed" selector="pressed" />
+
+		<!-- Icon top-left, "Selected" top-right. The circle and icon bind to the
+		     selection directly: the card's checked state is set before they exist -->
+		<lv_obj width="100%" height="content" flex_flow="row"
+			style_flex_main_place="space_between" style_flex_cross_place="center">
+			<style name="style_box" />
+			<lv_obj style_bg_color="{subject_room == index ? subject_accent : color_panel_high}">
+				<style name="style_room_icon" />
+				<lv_image src="{icon}" align="center"
+					style_image_recolor="{subject_room == index ? color_on_accent : color_text}">
+					<style name="style_icon" />
+				</lv_image>
+			</lv_obj>
+			<lv_label text="Selected" hidden="{subject_room != index}"
+				style_text_font="font_small" style_text_color="{subject_accent}" />
+		</lv_obj>
+
+		<!-- Name and temperature at the bottom -->
+		<lv_obj width="100%" height="content" flex_flow="row"
+			style_flex_main_place="space_between" style_flex_cross_place="end">
+			<style name="style_box" />
+			<lv_label text="{text}" style_text_font="font_h2" />
+			<temp_value temp="{temp}" style_text_font="font_h1" />
+		</lv_obj>
+
+		<set_subject_event subject="subject_room" value="{index}" />
+		<screen_load_event screen="home" anim_type="fade_in" duration="200" />
+	</view>
+</component>

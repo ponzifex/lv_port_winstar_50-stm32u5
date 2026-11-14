@@ -1,0 +1,22 @@
+<!-- Settings: °F converts every temperature, °C switches back -->
+<test>
+	<view extends="settings" />
+
+	<steps>
+		<!-- Pin every subject the screenshots depend on: subjects keep their values between tests -->
+		<subject_set subject="subject_mode" value="1" />
+		<subject_set subject="subject_fan" value="0" />
+		<subject_set subject="subject_room" value="0" />
+		<subject_set subject="subject_unit_f" value="0" />
+		<subject_set subject="subject_temp_target" value="215" />
+		<subject_set subject="subject_brightness" value="80" />
+		<wait ms="50" />
+		<click_at x="714" y="133" />
+		<wait ms="300" />
+		<subject_compare subject="subject_unit_f" value="1" />
+		<screenshot_compare path="settings_fahrenheit.png" />
+		<click_at x="618" y="133" />
+		<wait ms="50" />
+		<subject_compare subject="subject_unit_f" value="0" />
+	</steps>
+</test>

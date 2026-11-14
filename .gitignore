@@ -1,0 +1,7 @@
+build/
+lvgl_ui_project/build/
+lvgl_ui_project/preview-bin/
+lvgl_ui_project/preview-build/
+lvgl_ui_project/.claude/
+lvgl_ui_project/AGENTS.md
+lvgl_ui_project/.mcp.json

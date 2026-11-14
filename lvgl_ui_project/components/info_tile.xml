@@ -1,0 +1,25 @@
+<!-- Small icon + value chip, e.g. humidity or outdoor temperature in the top bar.
+     Put the value widget in the "value" slot. -->
+<component>
+	<api>
+		<prop name="icon" type="image" help="28 px Lucide icon" />
+		<slot name="value" />
+	</api>
+
+	<previews>
+		<preview name="dark" width="160" height="60" style_bg_color="0x0E1117"
+			style_text_color="0xE9ECF2" style_pad_all="8" />
+	</previews>
+
+	<view extends="lv_obj" width="content" height="content" flex_flow="row"
+		style_pad_gap="{space_sm}" style_flex_cross_place="center">
+		<style name="style_box" />
+		<lv_image src="{icon}">
+			<style name="style_icon" />
+			<style name="style_icon_muted" />
+		</lv_image>
+		<lv_obj name="value" width="content" height="content">
+			<style name="style_box" />
+		</lv_obj>
+	</view>
+</component>

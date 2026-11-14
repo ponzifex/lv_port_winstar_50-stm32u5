@@ -1,0 +1,179 @@
+<!-- The home screen's main control: a draggable arc for the target temperature,
+     the mode caption and the current temperature of the selected room in the middle,
+     and -/+ buttons in the arc's open bottom. -->
+<component>
+	<styles>
+		<style
+			name="style_dial_track"
+			arc_width="{arc_width}"
+			arc_color="{color_panel_high}"
+			arc_opa="100%"
+			arc_rounded="true"
+			bg_opa="0"
+			pad_all="0"
+		/>
+		<style
+			name="style_dial_indicator"
+			arc_width="{arc_width}"
+			arc_rounded="true"
+		/>
+		<!-- Knob sits on the arc: padding makes it larger than the stroke -->
+		<style
+			name="style_dial_knob"
+			bg_color="{color_text}"
+			bg_opa="100%"
+			pad_all="6"
+			radius="{radius_round}"
+			shadow_width="12"
+			shadow_opa="40%"
+			shadow_color="0x000000"
+		/>
+		<style
+			name="style_step_button"
+			width="{touch_min}"
+			height="{touch_min}"
+			radius="{radius_round}"
+			text_font="font_h1"
+		/>
+	</styles>
+
+	<previews>
+		<preview
+			name="dark"
+			width="340"
+			height="368"
+			style_bg_color="0x0E1117"
+			style_text_color="0xE9ECF2"
+			style_text_font="font_body"
+		/>
+	</previews>
+
+	<view
+		extends="lv_obj"
+		width="{dial_card_width}"
+		height="100%"
+		scrollable="false"
+	>
+		<style name="style_card" />
+
+		<!-- 270° arc, opening at the bottom. 160..300 = 16.0..30.0 °C -->
+		<lv_arc
+			width="{dial_size}"
+			height="{dial_size}"
+			align="top_mid"
+			rotation="135"
+			bg_start_angle="0"
+			bg_end_angle="270"
+			min_value="160"
+			max_value="300"
+			bind_value="subject_temp_target"
+			style_arc_color-indicator="{subject_accent}"
+		>
+			<style name="style_dial_track" />
+			<style name="style_dial_indicator" selector="indicator" />
+			<style name="style_dial_knob" selector="knob" />
+
+			<!-- Center readout -->
+			<lv_obj
+				width="content"
+				height="content"
+				align="center"
+				flex_flow="column"
+				style_flex_cross_place="center"
+			>
+				<style name="style_box" />
+				<!-- Mode caption: one label per mode, the others hidden -->
+				<lv_label
+					text="HEATING TO"
+					hidden="{subject_mode != 1}"
+					style_text_font="font_small"
+					style_text_color="{subject_accent}"
+				/>
+				<lv_label
+					text="COOLING TO"
+					hidden="{subject_mode != 2}"
+					style_text_font="font_small"
+					style_text_color="{subject_accent}"
+				/>
+				<lv_label
+					text="KEEP AT"
+					hidden="{subject_mode != 3}"
+					style_text_font="font_small"
+					style_text_color="{subject_accent}"
+				/>
+				<lv_label
+					text="SYSTEM OFF"
+					hidden="{subject_mode != 0}"
+					style_text_font="font_small"
+					style_text_color="{subject_accent}"
+				/>
+				<!-- Margin keeps the big number clear of the caption and the "Now" row -->
+				<temp_value
+					temp="subject_temp_target"
+					style_text_font="font_display"
+					style_margin_ver="{space_sm}"
+				/>
+
+				<!-- Current temperature of the selected room: one readout per room -->
+				<lv_obj
+					width="content"
+					height="content"
+					flex_flow="row"
+					style_pad_gap="{space_xs}"
+					style_flex_cross_place="center"
+				>
+					<style name="style_box" />
+					<lv_label text="Now" />
+					<temp_value
+						temp="subject_temp_living"
+						hidden="{subject_room != 0}"
+					/>
+					<temp_value
+						temp="subject_temp_bedroom"
+						hidden="{subject_room != 1}"
+					/>
+					<temp_value
+						temp="subject_temp_kitchen"
+						hidden="{subject_room != 2}"
+					/>
+					<temp_value
+						temp="subject_temp_office"
+						hidden="{subject_room != 3}"
+					/>
+					<style name="style_text_muted" />
+				</lv_obj>
+			</lv_obj>
+		</lv_arc>
+
+		<!-- -/+ by 0.5 °C, clamped by the subject's min and max -->
+		<lv_obj
+			width="content"
+			height="content"
+			align="bottom_mid"
+			flex_flow="row"
+			style_pad_gap="{space_xl * 2}"
+		>
+			<style name="style_box" />
+			<lv_button>
+				<style name="style_button" />
+				<style name="style_step_button" />
+				<style name="style_button_pressed" selector="pressed" />
+				<lv_label text="−" align="center" />
+				<set_subject_event
+					subject="subject_temp_target"
+					value="{subject_temp_target - 5}"
+				/>
+			</lv_button>
+			<lv_button>
+				<style name="style_button" />
+				<style name="style_step_button" />
+				<style name="style_button_pressed" selector="pressed" />
+				<lv_label text="+" align="center" />
+				<set_subject_event
+					subject="subject_temp_target"
+					value="{subject_temp_target + 5}"
+				/>
+			</lv_button>
+		</lv_obj>
+	</view>
+</component>

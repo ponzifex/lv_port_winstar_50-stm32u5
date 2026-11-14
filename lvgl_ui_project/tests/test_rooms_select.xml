@@ -1,0 +1,19 @@
+<!-- Rooms: tapping a card selects the room and opens home with its name -->
+<test>
+	<view extends="rooms" />
+
+	<steps>
+		<!-- Pin every subject the screenshots depend on: subjects keep their values between tests -->
+		<subject_set subject="subject_mode" value="1" />
+		<subject_set subject="subject_fan" value="0" />
+		<subject_set subject="subject_room" value="0" />
+		<subject_set subject="subject_unit_f" value="0" />
+		<subject_set subject="subject_temp_target" value="215" />
+		<subject_set subject="subject_brightness" value="80" />
+		<wait ms="50" />
+		<click_at x="273" y="368" />
+		<wait ms="500" />
+		<subject_compare subject="subject_room" value="2" />
+		<screenshot_compare path="rooms_kitchen.png" />
+	</steps>
+</test>

@@ -1,0 +1,63 @@
+{
+    "name": "Winstar 5\" Smart Display STM32U599",
+    "maintainer": "LVGL",
+    "hostOperatingsystem": [
+        "Windows"
+    ],
+    "environment": [
+        "CMake"
+    ],
+    "hardware": {
+        "chipVendor": "ST",
+        "manufacturer": "Winstar",
+        "specs": {
+            "MCU": "STM32U599ZIT6Q (Cortex-M33, 160MHz)",
+            "RAM": "2.5MB (internal)",
+            "Flash": "2MB internal, 16MB external",
+            "GPU": "NeoChrom (GPU2D), Chrom-Art (DMA2D)",
+            "Resolution": "800x480",
+            "Display Size": "5.0\"",
+            "Interface": "RGB LCD",
+            "Color Depth": "16-bit",
+            "DPI": "187 px/inch",
+            "Technology": "TODO",
+            "Touch Pad": "Capacitive (ILI2130)"
+        }
+    },
+    "description": "Winstar's 5\" Smart Display combines an STM32U599 with NeoChrom GPU, an 800x480 RGB display, capacitive touch and 16MB external flash. The UI is an LVGL Pro project: edit it in the LVGL Pro Editor, export it, then build and flash with STM32CubeCLT.",
+    "shortDescription": "STM32U599 with NeoChrom on an 800x480 touch display.",
+    "urlToClone": "https://github.com/lvgl/lv_port_winstar_50-stm32u5.git",
+    "logos": [
+        "https://raw.githubusercontent.com/lvgl/project-creator/master/meta/images/st/logo.svg"
+    ],
+    "image": "TODO",
+    "buy_now_links": [],
+    "branches": [
+        "release/v9.6"
+    ],
+    "getStartedInstructions": "1. Install [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html).\n2. Power the board through USB-C, then connect an ST-Link to the SWD header.\n3. Run `build_and_flash.bat`.\n4. To change the UI, open `lvgl_ui_project` in the LVGL Pro Editor, export it with Ctrl+E, and run `build_and_flash.bat` again.",
+    "settings": [
+        {
+            "type": "dropdown",
+            "label": "Show performance monitor",
+            "options": [
+                {
+                    "name": "Yes",
+                    "value": "1"
+                },
+                {
+                    "name": "No",
+                    "value": "0",
+                    "default": "true"
+                }
+            ],
+            "actions": [
+                {
+                    "toReplace": " *#define LV_USE_PERF_MONITOR .*",
+                    "newContent": "    #define LV_USE_PERF_MONITOR {value}",
+                    "filePath": "Core/Inc/lv_conf.h"
+                }
+            ]
+        }
+    ]
+}

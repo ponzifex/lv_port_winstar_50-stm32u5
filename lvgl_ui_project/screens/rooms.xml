@@ -1,0 +1,25 @@
+<!-- Rooms: pick the room that home shows and controls -->
+<screen permanent="true">
+	<view flex_flow="row" scrollable="false">
+		<style name="style_screen" />
+		<nav_rail active="rooms" />
+
+		<lv_obj flex_grow="1" height="100%" flex_flow="column" scrollable="false"
+			style_pad_all="{space_xl}" style_pad_gap="{space_lg}">
+			<style name="style_box" />
+			<top_bar title="Rooms" />
+
+			<!-- 2×2 grid of room cards -->
+			<lv_obj width="100%" flex_grow="1" flex_flow="row" style_pad_gap="{space_lg}">
+				<style name="style_box" />
+				<room_card text="Living room" icon="icon_sofa" temp="subject_temp_living" index="0" />
+				<room_card text="Bedroom" icon="icon_bed_double" temp="subject_temp_bedroom" index="1" />
+			</lv_obj>
+			<lv_obj width="100%" flex_grow="1" flex_flow="row" style_pad_gap="{space_lg}">
+				<style name="style_box" />
+				<room_card text="Kitchen" icon="icon_cooking_pot" temp="subject_temp_kitchen" index="2" />
+				<room_card text="Office" icon="icon_monitor" temp="subject_temp_office" index="3" />
+			</lv_obj>
+		</lv_obj>
+	</view>
+</screen>

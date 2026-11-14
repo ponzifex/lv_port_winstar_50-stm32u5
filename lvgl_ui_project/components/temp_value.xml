@@ -1,0 +1,23 @@
+<!-- A temperature readout. Reads an int subject in 0.1 °C and shows it in the unit
+     that subject_unit_f selects. Set the font on the instance: it is inherited. -->
+<component>
+	<api>
+		<prop name="temp" type="subject" help="Int subject in 0.1 °C, e.g. subject_temp_living" />
+		<prop name="whole" type="bool" default="false"
+			help="true: show whole degrees only. Use it for values that can be negative" />
+	</api>
+
+	<previews>
+		<preview name="dark" width="200" height="80" style_bg_color="0x0E1117"
+			style_text_color="0xE9ECF2" style_pad_all="16" />
+	</previews>
+
+	<view extends="lv_obj" width="content" height="content">
+		<style name="style_box" />
+		<!-- °F is always shown in whole degrees, rounded (+5 tenths before the divide) -->
+		<lv_label hidden="{whole}"
+			text="{subject_unit_f ? (temp * 9 / 5 + 325) / 10 . '°' : temp / 10 . '.' . temp % 10 . '°'}" />
+		<lv_label hidden="{!whole}"
+			text="{subject_unit_f ? (temp * 9 / 5 + 325) / 10 . '°' : temp / 10 . '°'}" />
+	</view>
+</component>

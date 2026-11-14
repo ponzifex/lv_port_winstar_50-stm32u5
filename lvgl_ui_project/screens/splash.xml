@@ -1,0 +1,31 @@
+<!-- Splash: the photo of a wall display, with the logos shown "on" that display.
+     Fades the logos in, then loads home after 2.5 s. Not permanent: it is
+     deleted when home replaces it. -->
+<screen>
+	<animations>
+		<timeline name="timeline_intro">
+			<animation prop="opa" target="logos" start="0" end="255" duration="800" easing="ease_out" />
+			<animation prop="translate_y" target="logos" start="12" end="0" duration="800" easing="ease_out" />
+		</timeline>
+	</animations>
+
+	<view scrollable="false" style_bg_image_src="img_splash">
+		<style name="style_screen" />
+
+		<!-- Matches the dark screen area of the wall display in splash_s.png -->
+		<lv_obj name="logos" x="72" y="104" width="282" height="196" flex_flow="column"
+			style_opa="0" style_pad_gap="{space_sm}"
+			style_flex_main_place="center" style_flex_cross_place="center" style_flex_track_place="center">
+			<style name="style_box" />
+			<lv_image src="img_logo_winstar_small" />
+			<lv_label text="powered by">
+				<style name="style_text_caption" />
+			</lv_label>
+			<lv_image src="img_logo_lvgl_small" />
+		</lv_obj>
+
+		<play_timeline_event trigger="screen_loaded" target="self" timeline="timeline_intro" />
+		<screen_load_event trigger="screen_loaded" screen="home" anim_type="fade_in"
+			duration="500" delay="2500" />
+	</view>
+</screen>

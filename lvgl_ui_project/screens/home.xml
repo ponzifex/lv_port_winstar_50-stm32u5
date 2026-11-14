@@ -1,0 +1,61 @@
+<!-- Home: target temperature dial, mode and fan speed for the selected room -->
+<screen permanent="true">
+	<view flex_flow="row" scrollable="false">
+		<style name="style_screen" />
+
+		<!-- subject_accent follows subject_mode, whoever writes the mode.
+		     Home is permanent, so these bindings live for the whole run. -->
+		<set_subject_event subject="subject_accent" trigger="{subject_mode == 0}" value="{color_off}" />
+		<set_subject_event subject="subject_accent" trigger="{subject_mode == 1}" value="{color_heat}" />
+		<set_subject_event subject="subject_accent" trigger="{subject_mode == 2}" value="{color_cool}" />
+		<set_subject_event subject="subject_accent" trigger="{subject_mode == 3}" value="{color_auto}" />
+
+		<nav_rail active="home" />
+
+		<!-- Content column -->
+		<lv_obj flex_grow="1" height="100%" flex_flow="column" scrollable="false"
+			style_pad_all="{space_xl}" style_pad_gap="{space_lg}">
+			<style name="style_box" />
+			<top_bar title="{subject_room == 0 ? 'Living room' : (subject_room == 1 ? 'Bedroom' : (subject_room == 2 ? 'Kitchen' : 'Office'))}" />
+
+			<lv_obj width="100%" flex_grow="1" flex_flow="row" scrollable="false"
+				style_pad_gap="{space_lg}">
+				<style name="style_box" />
+				<temp_dial />
+
+				<!-- Right column: mode, then fan -->
+				<lv_obj flex_grow="1" height="100%" flex_flow="column" scrollable="false"
+					style_pad_gap="{space_lg}">
+					<style name="style_box" />
+
+					<lv_obj width="100%" flex_grow="1" flex_flow="column" scrollable="false"
+						style_pad_gap="{space_sm}">
+						<style name="style_card" />
+						<lv_label text="Mode">
+							<style name="style_text_caption" />
+						</lv_label>
+						<lv_obj width="100%" flex_grow="1" flex_flow="row" style_pad_gap="{space_sm}">
+							<style name="style_box" />
+							<mode_button icon="icon_flame" text="Heat" value="1" />
+							<mode_button icon="icon_snowflake" text="Cool" value="2" />
+						</lv_obj>
+						<lv_obj width="100%" flex_grow="1" flex_flow="row" style_pad_gap="{space_sm}">
+							<style name="style_box" />
+							<mode_button icon="icon_sun_snow" text="Auto" value="3" />
+							<mode_button icon="icon_power" text="Off" value="0" />
+						</lv_obj>
+					</lv_obj>
+
+					<lv_obj width="100%" height="content" flex_flow="column" scrollable="false"
+						style_pad_gap="{space_sm}">
+						<style name="style_card" />
+						<lv_label text="Fan">
+							<style name="style_text_caption" />
+						</lv_label>
+						<fan_selector />
+					</lv_obj>
+				</lv_obj>
+			</lv_obj>
+		</lv_obj>
+	</view>
+</screen>
