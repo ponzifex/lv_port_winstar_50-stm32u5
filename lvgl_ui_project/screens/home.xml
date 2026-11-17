@@ -16,7 +16,8 @@
 		<lv_obj flex_grow="1" height="100%" flex_flow="column" scrollable="false"
 			style_pad_all="{space_xl}" style_pad_gap="{space_lg}">
 			<style name="style_box" />
-			<top_bar title="{subject_room == 0 ? 'Living room' : (subject_room == 1 ? 'Bedroom' : (subject_room == 2 ? 'Kitchen' : 'Office'))}" />
+			<!-- One flat ternary per room: a nested ternary in ( ) is exported as "true"/"false" -->
+			<top_bar title="{(subject_room == 0 ? 'Living room' : '') . (subject_room == 1 ? 'Bedroom' : '') . (subject_room == 2 ? 'Kitchen' : '') . (subject_room == 3 ? 'Office' : '')}" />
 
 			<lv_obj width="100%" flex_grow="1" flex_flow="row" scrollable="false"
 				style_pad_gap="{space_lg}">

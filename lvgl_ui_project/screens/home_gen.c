@@ -111,8 +111,8 @@ lv_obj_t * home_create(void)
         lv_obj_set_style_pad_all(lv_obj_1, SPACE_XL, 0);
         lv_obj_set_style_pad_gap(lv_obj_1, SPACE_LG, 0);
         lv_obj_add_style(lv_obj_1, &style_box, 0);
-        lv_snprintf(eval_buf_1, sizeof(eval_buf_1), "%s", (lv_subject_get_int(subject_room) == 1 ? "Bedroom" : (lv_subject_get_int(subject_room) == 2 ? "Kitchen" : "Office")) ? "true" : "false");
-        lv_obj_t * top_bar_0 = top_bar_create(lv_obj_1, lv_subject_get_int(subject_room) == 0 ? "Living room" : eval_buf_1);
+        lv_snprintf(eval_buf_1, sizeof(eval_buf_1), "%s%s%s%s", (lv_subject_get_int(subject_room) == 0 ? "Living room" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 1 ? "Bedroom" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 2 ? "Kitchen" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 3 ? "Office" : "") ? "true" : "false");
+        lv_obj_t * top_bar_0 = top_bar_create(lv_obj_1, eval_buf_1);
         lv_subject_add_observer_obj(subject_room, home_top_bar_0_title_binding_cb, top_bar_0, NULL);
 
         lv_obj_t * lv_obj_2 = lv_obj_create(lv_obj_1);
@@ -272,7 +272,7 @@ static void home_top_bar_0_title_binding_cb(lv_observer_t * observer, lv_subject
     LV_UNUSED(subject);
     lv_obj_t * obj = lv_observer_get_target_obj(observer);
     char eval_buf_1[LV_XML_EVAL_STRING_BUF_SIZE];
-    lv_snprintf(eval_buf_1, sizeof(eval_buf_1), "%s", (lv_subject_get_int(subject_room) == 1 ? "Bedroom" : (lv_subject_get_int(subject_room) == 2 ? "Kitchen" : "Office")) ? "true" : "false");
-    top_bar_set_title(obj, lv_subject_get_int(subject_room) == 0 ? "Living room" : eval_buf_1);
+    lv_snprintf(eval_buf_1, sizeof(eval_buf_1), "%s%s%s%s", (lv_subject_get_int(subject_room) == 0 ? "Living room" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 1 ? "Bedroom" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 2 ? "Kitchen" : "") ? "true" : "false", (lv_subject_get_int(subject_room) == 3 ? "Office" : "") ? "true" : "false");
+    top_bar_set_title(obj, eval_buf_1);
 }
 
